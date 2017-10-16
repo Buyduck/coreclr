@@ -37,7 +37,8 @@ struct MethodDebugInfo
     ~MethodDebugInfo();
 };
 
-typedef BOOL (CALLBACK *GetInfoForMethodDelegate)(const char*, unsigned int, MethodDebugInfo& methodDebugInfo);
+typedef BOOL (*PrintDelegate)(const char*);
+typedef BOOL (CALLBACK *GetInfoForMethodDelegate)(const char*, unsigned int, MethodDebugInfo& methodDebugInfo, PrintDelegate);
 extern GetInfoForMethodDelegate getInfoForMethodDelegate;
 
 #endif // !__GDBJITHELPERS_H__

@@ -47,6 +47,8 @@ namespace SOS
         /// <returns>number of bytes read or 0 for error</returns>
         internal unsafe delegate int ReadMemoryDelegate(ulong address, byte* buffer, int count);
 
+        public unsafe delegate int PrintDelegate(string message);
+
         private sealed class OpenedReader : IDisposable
         {
             public readonly MetadataReaderProvider Provider;
@@ -459,10 +461,11 @@ namespace SOS
         /// <param name="debugInfo">structure with debug information return</param>
         /// <returns>true if information is available</returns>
         /// <remarks>used by the gdb JIT support (not SOS). Does not support in-memory PEs or PDBs</remarks>
-        internal static bool GetInfoForMethod(string assemblyPath, int methodToken, ref MethodDebugInfo debugInfo)
+        internal static bool GetInfoForMethod(string assemblyPath, int methodToken, ref MethodDebugInfo debugInfo, PrintDelegate printDelegate)
         {
             try
             {
+                printDelegate("hi!!!!");
                 List<DebugInfo> points = null;
                 List<LocalVarInfo> locals = null;
 

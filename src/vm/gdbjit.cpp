@@ -492,6 +492,13 @@ MethodDebugInfo::~MethodDebugInfo()
     CoTaskMemFree(points);
 }
 
+BOOL Print(const char* message)
+{
+    // To disable logging you may comment next line
+    fprintf(stdout, "@ %s\n", message);
+    return TRUE;
+}
+
 /* Get mapping of IL offsets to source line numbers */
 HRESULT
 GetDebugInfoFromPDB(MethodDesc* methodDescPtr,
@@ -518,7 +525,7 @@ GetDebugInfoFromPDB(MethodDesc* methodDescPtr,
 
     MethodDebugInfo methodDebugInfo(numMap, locals.countVars);
 
-    if (getInfoForMethodDelegate(szModName, methodDescPtr->GetMemberDef(), methodDebugInfo) == FALSE)
+    if (getInfoForMethodDelegate(szModName, methodDescPtr->GetMemberDef(), methodDebugInfo, Print) == FALSE)
         return E_FAIL;
 
     symInfoLen = numMap;
